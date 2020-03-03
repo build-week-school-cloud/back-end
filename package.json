@@ -1,0 +1,39 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch",
+    "server": "nodemon index.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/build-week-school-cloud/back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/build-week-school-cloud/back-end/issues"
+  },
+  "homepage": "https://github.com/build-week-school-cloud/back-end#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "helmet": "^3.21.3",
+    "jest": "^25.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.20.10",
+    "sqlite3": "^4.1.1",
+    "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
+  }
+}
