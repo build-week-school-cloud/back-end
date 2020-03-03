@@ -3,7 +3,6 @@ const db = require("../database/dbConfig");
 module.exports = {
   find,
   findById,
-  findTasks,
   add,
   update,
   remove

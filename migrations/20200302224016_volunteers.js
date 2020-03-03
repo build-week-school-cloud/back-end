@@ -5,7 +5,7 @@ exports.up = function(knex) {
         volunteers.string('name', 255).notNullable();
         volunteers.string('location').notNullable();
         volunteers.string('subject').notNullable();
-        volunteers.time('time', [precision]).notNullable()
+        volunteers.time('time').notNullable()
       });
 };
 
