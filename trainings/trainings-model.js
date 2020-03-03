@@ -17,12 +17,7 @@ function findById(id) {
   return db("tasks")
     .where({ id })
     .first();
-}
-
-function findTasks(id) {
-    return db("tasks")
-      .where("tasks", id);
-  }  
+} 
 
 function add(task) {
   return db("tasks").insert(task, "id");
