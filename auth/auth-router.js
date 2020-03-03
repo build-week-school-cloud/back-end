@@ -29,7 +29,7 @@ router.post('/login', (req, res) => {
         const token = generateToken(user); 
 
         res.status(200).json({
-          message: `Welcome ${user.username}!`,
+          message: `Welcome ${user.username}, ${user.role}!`,
           token, 
         });
       } else {

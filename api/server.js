@@ -1,10 +1,9 @@
-
 const express = require('express');
 const helmet = require('helmet');
 
 const authenticate = require('../auth/authenticate-middleware.js');
 const authRouter = require('../auth/auth-router.js');
-const jokesRouter = require('../jokes/jokes-router.js');
+const trainingsRouter = require('../trainings/trainings-router');
 
 const server = express();
 
@@ -12,6 +11,6 @@ server.use(helmet());
 server.use(express.json());
 
 server.use('/api/auth', authRouter);
-server.use('/api/jokes', authenticate, jokesRouter);
+server.use('/api/trainings', authenticate, trainingsRouter);
 
 module.exports = server;
