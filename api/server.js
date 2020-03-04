@@ -26,18 +26,18 @@ function isAdmin(req, res, next) {
         res.send('You are not an authorized administrator!'); 
     }  
 }
-
 function isStudent(req, res, next) {
-    if (req.body.role === 'Student')  {
+    if (req.decodedToken && 
+        req.decodedToken.role.toLowerCase() === 'student')  {
         next();
     } else {
         res.send('You are not a student!'); 
     }
-    
 }
 
 function isVolunteer(req, res, next) {
-    if (req.body.role === 'Volunteer')  {
+    if (req.decodedToken && 
+        req.decodedToken.role.toLowerCase() === 'volunteer')  {
         next();
     } else {
         res.send('You are not an authorized volunteer!'); 
