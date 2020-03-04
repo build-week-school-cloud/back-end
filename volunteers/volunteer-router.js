@@ -1,41 +1,41 @@
 const express = require('express');
 
-const Tasks = require('./admin-model');
+const Volunteer = require('./volunteer-model');
 
 const router = express.Router();
 
 router.get('/',(req, res) => {
-  Tasks.find()
-  .then(tasks => {
-    res.status(200).json(tasks);
+  Volunteer.find()
+  .then(cards => {
+    res.status(200).json(cards);
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to get tasks' });
+    res.status(500).json({ message: 'Failed to get cards' });
   });
 });
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
 
-  Tasks.findById(id)
-  .then(task => {
-    if (task) {
-      res.json(task);
+  Volunteer.findById(id)
+  .then(card => {
+    if (card) {
+      res.json(card);
     } else {
-      res.status(404).json({ message: 'Could not find task with given id.' })
+      res.status(404).json({ message: 'Could not find card with given id.' })
     }
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to get task' });
+    res.status(500).json({ message: 'Failed to get card' });
   });
 });
 
 
-router.post('/', availableTasks, (req, res) => {
-  const taskData = req.body;
-  Tasks.add(taskData)
-  .then(task => {
-    res.status(201).json(task);
+router.post('/', availableVolunteer, (req, res) => {
+  const cardData = req.body;
+  Volunteer.add(cardData)
+  .then(card => {
+    res.status(201).json(card);
   })
   .catch (err => {
     res.status(500).json({ message: 'Failed to create new task' });
@@ -46,10 +46,10 @@ router.put('/:id', (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
-  Tasks.findById(id)
-  .then(task => {
-    if (task) {
-      Tasks.update(changes, id)
+  Volunteer.findById(id)
+  .then(card => {
+    if (card) {
+      Volunteer.update(changes, id)
       .then(updatedTask => {
         res.json(updatedTask);
       });
@@ -65,7 +65,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
 
-  Tasks.remove(id)
+  Volunteer.remove(id)
   .then(deleted => {
     if (deleted) {
       res.json({ removed: deleted });
@@ -79,11 +79,11 @@ router.delete('/:id', (req, res) => {
 });
 
 
-function availableTasks (req, res, next) {
-  if (req.body.name && req.body.description){
+function availableVolunteer (req, res, next) {
+  if (req.body.name && req.body.location && req.body.subject && req.body.time){
     next() 
   } else {
-    res.status(400).json({message: "no tasks available"})
+    res.status(400).json({message: "no card created"})
   }
 }
 
