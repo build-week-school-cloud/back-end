@@ -4,9 +4,9 @@ const cors = require('cors');
 
 const authenticate = require('../auth/authenticate-middleware.js');
 const authRouter = require('../auth/auth-router.js');
-const trainingsRouter = require('../trainings/trainings-router');
+const adminRouter = require('../admin/admin-router');
 const volunteersRouter = require('../volunteers/volunteers-router');
-
+const userDb = require('../auth/users-model');
 const server = express();
 
 server.use(helmet());
@@ -15,59 +15,34 @@ server.use(express.json());
 // server.use(isAdmin);
 
 server.use('/api/auth', authRouter);
-server.use('/api/student', authenticate, checkRole, volunteersRouter);
-server.use('/api/volunteer', authenticate, checkRole, volunteersRouter, trainingsRouter);
-server.use('/api/admin', authenticate, checkRole('Administrator'), trainingsRouter);
+server.use('/api/admin', authenticate, isAdmin, adminRouter);
 
 server.get("/", (req, res) => {
     res.json("It's alive!");
   });
 
-
-function checkRole(role){
-    return (req, res, next) => {
-      if (
-        req.decodedToken &&
-        req.decodedToken.role &&
-        req.decodedToken.role.toLowerCase() === role) {
-        next();
-      } else {
-        res.status(403).json({you: "shall not pass"});
-      }
+function isAdmin (req, res, next){
+    if (req.decodedToken.role === "administrator"){
+        next()
+    } else {
+        res.status(400).json({message: "not an admin"})
     }
-  }
+}
 
-// function isAdmin(req, res, next) {
-//     if (req.decodedToken && 
-//         req.decodedToken.role.toLowerCase() === 'administrator' 
-//     )  {
-//         next();
-//     } else {
-//         res.send('You are not an authorized administrator!'); 
-//     }  
-// }
-// function isStudent(req, res, next) {
-//     if (req.decodedToken && 
-//         req.decodedToken.role.toLowerCase() === 'student')  {
-//         next();
-//     } else {
-//         res.send('You are not a student!'); 
-//     }
-// }
+function isVolunteer (req, res, next){
+    if (req.decodedToken.role === "volunteer"){
+        next()
+    } else {
+        res.status(400).json({message: "not a volunteer"})
+    }
+}
 
-// function isVolunteer(req, res, next) {
-//     if (req.decodedToken && 
-//         req.decodedToken.role.toLowerCase() === 'volunteer')  {
-//         next();
-//     } else {
-//         res.send('You are not an authorized volunteer!'); 
-//     }
-    
-// }
-
-  
-// if Users.Role = admin, return admin home
-// 3 middlewares
-// isAdmin, isStudent, isVolunteer 
+function isStudent (req, res, next){
+    if (req.decodedToken.role === "student"){
+        next()
+    } else {
+        res.status(400).json({message: "not a student"})
+    }
+}
 
 module.exports = server;
