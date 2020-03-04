@@ -19,6 +19,11 @@ server.use('/api/student', authenticate, checkRole, volunteersRouter);
 server.use('/api/volunteer', authenticate, checkRole, volunteersRouter, trainingsRouter);
 server.use('/api/admin', authenticate, checkRole('Administrator'), trainingsRouter);
 
+server.get("/", (req, res) => {
+    res.json("It's alive!");
+  });
+
+
 function checkRole(role){
     return (req, res, next) => {
       if (
