@@ -1,5 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 
 const authenticate = require('../auth/authenticate-middleware.js');
 const authRouter = require('../auth/auth-router.js');
@@ -9,13 +10,14 @@ const volunteersRouter = require('../volunteers/volunteers-router');
 const server = express();
 
 server.use(helmet());
+server.use(cors());
 server.use(express.json());
 // server.use(isAdmin);
 
 server.use('/api/auth', authRouter);
 server.use('/api/student', authenticate, checkRole, volunteersRouter);
 server.use('/api/volunteer', authenticate, checkRole, volunteersRouter, trainingsRouter);
-server.use('/api/admin', authenticate, checkRole, trainingsRouter);
+server.use('/api/admin', authenticate, checkRole('Administrator'), trainingsRouter);
 
 function checkRole(role){
     return (req, res, next) => {
