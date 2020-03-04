@@ -10,40 +10,53 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
-server.use(isAdmin);
+// server.use(isAdmin);
 
 server.use('/api/auth', authRouter);
-server.use('/api/student', authenticate, isStudent, volunteersRouter);
-server.use('/api/volunteer', authenticate, isVolunteer, volunteersRouter, trainingsRouter);
-server.use('/api/admin', authenticate, isAdmin, trainingsRouter);
+server.use('/api/student', authenticate, checkRole, volunteersRouter);
+server.use('/api/volunteer', authenticate, checkRole, volunteersRouter, trainingsRouter);
+server.use('/api/admin', authenticate, checkRole, trainingsRouter);
 
-function isAdmin(req, res, next) {
-    if (req.decodedToken && 
-        req.decodedToken.role.toLowerCase() === 'administrator' 
-    )  {
+function checkRole(role){
+    return (req, res, next) => {
+      if (
+        req.decodedToken &&
+        req.decodedToken.role &&
+        req.decodedToken.role.toLowerCase() === role) {
         next();
-    } else {
-        res.send('You are not an authorized administrator!'); 
-    }  
-}
-function isStudent(req, res, next) {
-    if (req.decodedToken && 
-        req.decodedToken.role.toLowerCase() === 'student')  {
-        next();
-    } else {
-        res.send('You are not a student!'); 
+      } else {
+        res.status(403).json({you: "shall not pass"});
+      }
     }
-}
+  }
 
-function isVolunteer(req, res, next) {
-    if (req.decodedToken && 
-        req.decodedToken.role.toLowerCase() === 'volunteer')  {
-        next();
-    } else {
-        res.send('You are not an authorized volunteer!'); 
-    }
+// function isAdmin(req, res, next) {
+//     if (req.decodedToken && 
+//         req.decodedToken.role.toLowerCase() === 'administrator' 
+//     )  {
+//         next();
+//     } else {
+//         res.send('You are not an authorized administrator!'); 
+//     }  
+// }
+// function isStudent(req, res, next) {
+//     if (req.decodedToken && 
+//         req.decodedToken.role.toLowerCase() === 'student')  {
+//         next();
+//     } else {
+//         res.send('You are not a student!'); 
+//     }
+// }
+
+// function isVolunteer(req, res, next) {
+//     if (req.decodedToken && 
+//         req.decodedToken.role.toLowerCase() === 'volunteer')  {
+//         next();
+//     } else {
+//         res.send('You are not an authorized volunteer!'); 
+//     }
     
-}
+// }
 
   
 // if Users.Role = admin, return admin home
