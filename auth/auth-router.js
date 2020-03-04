@@ -31,6 +31,8 @@ router.post('/login', (req, res) => {
         res.status(200).json({
           message: `Welcome ${user.username}, ${user.role}!`,
           token, 
+          user_id: user.id, 
+          user_role: user.role
         });
       } else {
         res.status(401).json({ message: "You do not have access!" });
