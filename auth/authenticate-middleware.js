@@ -8,6 +8,7 @@ module.exports = (req, res, next) => {
       if (err) {
         res.status(401).json({ you: 'Not Authorized' });
       } else {
+        console.log(decodedToken)
         req.decodedToken = decodedToken;
         next();
           }
