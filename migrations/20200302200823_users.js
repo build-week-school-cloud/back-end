@@ -8,11 +8,12 @@ exports.up = function(knex) {
           .notNullable()
           .unique();
         users.string('password', 255).notNullable();
-        users.enu('role', ['Administrator', 'Volunteer', 'Student']).notNullable();
-        users.string('email', 255).notNullable();
-        users.integer('phone', 10).notNullable();
+        users.string('role').notNullable();
+        users.string('email', 255).notNullable().unique();
+        users.integer('phone', 10).notNullable().unique();
       });
 };
+console.log()
 
 exports.down = function(knex) {
     return knex.schema.dropTableIfExists('users');
