@@ -18,6 +18,21 @@ describe("admin router", function() {
         });
   });
 
+  //   it.skip('allows admin to view tasks', async () => {
+//     return await request(server)
+//        .post('/api/auth/login')
+//        .send({ username: 'maggie1', password: 'test' })
+//        .then(res => {
+//           const token = res.body.token
+//           return request(server)
+//              .get('/api/admin')
+//              .set("authorization", token)
+//              .then(res => {
+//                 expect(res.status).toBe(200)
+//                 expect(Array.isArray(res.body)).toBe(true)
+//              })
+//        })
+//  })
 
 });
 
