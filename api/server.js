@@ -7,7 +7,7 @@ const authRouter = require('../auth/auth-router.js');
 const adminRouter = require('../admin/admin-router');
 const studentsRouter = require('../students/students-router');
 const volunteerRouter = require('../volunteers/volunteer-router');
-// const userDb = require('../auth/users-model');
+
 
 const server = express();
 

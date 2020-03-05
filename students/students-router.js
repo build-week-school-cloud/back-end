@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   Students.find()
   .then(students => {
-    res.json(students);
+    res.status(401).json(students);
   })
   .catch(err => {
     res.status(500).json({ message: 'Failed to get classes' });
