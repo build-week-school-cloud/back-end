@@ -1,12 +1,12 @@
 
 exports.seed = function(knex) {
   
-  return knex('tasks').del()
+  return knex('users').del()
     .then(function () {
-      return knex('tasks').insert([
-        {id: 1, name: 'Algebra Tutoring', description: 'Algebra 1 tutoring for 20 kids'},
-        {id: 2, name: 'Trig Tutoring', description: 'Trig tutoring for 20 kids'},
-        {id: 3, name: 'Calc Tutoring', description: 'Calc tutoring for 20 kids'}
+      return knex('users').insert([
+        {id: 1, full_name: 'Maggie Price', username: 'maggie12', password:'test', role: 'administrator', email: 'a@a.com', phone: 1234567891},
+        {id: 2, full_name: 'Justin Price', username: 'justin12', password:'test', role: 'student', email: 'a@a.com', phone: 1234567891},
+        {id: 3, full_name: 'Brielle Price', username: 'brielle12', password:'test', role: 'volunteer', email: 'a@a.com', phone: 1234567891}
       ]);
     });
 };
