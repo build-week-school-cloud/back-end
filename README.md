@@ -30,6 +30,16 @@ The following endpoints are available to test the functionality of the model met
 | description | string           | required  
 
 
+Admins create tasks in the database conform to the following object structure:
+
+```js
+{
+  name: "Create Algebra 2 Tutoring Session", // String, required
+  description: 'Class should be 2 hours long and cover variables',  // String, required
+}
+```
+
+
 #### Volunteer Schema
 
 | field       | data type        | metadata                                            |
@@ -39,3 +49,14 @@ The following endpoints are available to test the functionality of the model met
 | location | string           | required   
 | subject | string           | required 
 | time | string           | required   
+
+Volunteers create trainings/cards in the database conform to the following object structure:
+
+```js
+{
+  name: "Algebra 2 Tutoring Session", // String, required
+  location: 'Dallas, TX',  // String, required
+  subject: 'Math',  // String, required
+  time: '7-9pm',  // String, required
+}
+```
