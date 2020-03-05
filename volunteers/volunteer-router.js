@@ -43,22 +43,23 @@ router.post('/', availableVolunteer, (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
+    console.log(req.params)
   const { id } = req.params;
   const changes = req.body;
 
   Volunteer.findById(id)
   .then(card => {
     if (card) {
-      Volunteer.update(changes, id)
+      Volunteer.update(id, changes)
       .then(updatedTask => {
-        res.staus(200).json(updatedTask);
+        res.status(200).json(updatedTask);
       });
     } else {
-      res.status(404).json({ message: 'Could not find Task with given id' });
+      res.status(404).json({ message: 'Could not find card with given id' });
     }
   })
   .catch (err => {
-    res.status(500).json({ message: 'Failed to update Task' });
+    res.status(500).json({ message: 'Failed to update card' });
   });
 });
 

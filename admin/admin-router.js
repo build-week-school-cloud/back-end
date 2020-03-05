@@ -49,9 +49,9 @@ router.put('/:id', (req, res) => {
   Tasks.findById(id)
   .then(task => {
     if (task) {
-      Tasks.update(changes, id)
+      Tasks.update(id, changes)
       .then(updatedTask => {
-        res.json(updatedTask);
+        res.status(200).json(updatedTask);
       });
     } else {
       res.status(404).json({ message: 'Could not find Task with given id' });
