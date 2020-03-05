@@ -51,7 +51,7 @@ router.put('/:id', (req, res) => {
     if (card) {
       Volunteer.update(changes, id)
       .then(updatedTask => {
-        res.json(updatedTask);
+        res.staus(200).json(updatedTask);
       });
     } else {
       res.status(404).json({ message: 'Could not find Task with given id' });
