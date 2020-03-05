@@ -25,6 +25,7 @@ server.get("/", (req, res) => {
   });
 
 function isAdmin (req, res, next){
+    console.log(req.decodedToken.role)
     if (req.decodedToken.role === "administrator"){
         next()
     } else {
@@ -33,6 +34,7 @@ function isAdmin (req, res, next){
 }
 
 function isVolunteer (req, res, next){
+    console.log(req.decodedToken.role)
     if (req.decodedToken.role === "volunteer"){
         next()
     } else {
@@ -41,6 +43,7 @@ function isVolunteer (req, res, next){
 }
 
 function isStudent (req, res, next){
+    console.log(req.decodedToken.role)
     if (req.decodedToken.role === "student"){
         next()
     } else {
